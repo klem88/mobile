@@ -1,0 +1,82 @@
+/*#hiddencanvas, #maincanvas, #mainsvg, #extdociframe{
+	position: absolute;
+	margin: 0;
+	padding: 0;
+};
+#canvases{
+	z-index: 1;
+}
+#svges{
+	z-index: 2;
+	pointer-events: none;
+}*/
+.ui-btn{
+	z-index: 10;
+}
+#bookselcover{
+	float: left;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+#loader{
+  display: block;
+  margin: auto;
+  z-index: 0;
+}
+/*.text-input, .text-input__label{
+	color: white;
+}*/
+#bookselcover{
+	width: 100%;
+}
+ons-search-input{
+	width: 100%;
+}
+#extdociframe, #linkedvideoiframe, #linkedpodcastiframe{
+	width: 100%;
+	height: 30vh;
+}
+.text-input--underbar{
+	color: white;
+}
+
+/* Style de la liste d'étagère lors de l'enregistrement d'un livre*/
+/*li{
+	padding: 4px;
+}
+.button--light{
+	color: white;
+	border: 1px solid white;
+}*/
+/**/
+
+/*Style des covers (img) dans les listes infinies + carousel*/
+/*.cariteminf{
+	padding-right: 10%;
+	padding-left: 10%;
+}
+.imginf{
+	width: 100%;
+}
+.favoriteicn{
+	font-size: 40px;
+}*/
+/**/
+
+/*Carousel des list views*/
+/*.cardlist{
+	height: 200px;
+}
+.listlistitem{
+	position: relative;
+	height: 20%;
+}
+.carouselslistview{
+	position: relative;
+	height: 80%;
+}
+.cariteminfview{
+	padding-right: 10px;
+	padding-left: 10px;	
+}*/
+/**/

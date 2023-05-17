@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript">
+		var loc = window.location;
+		/*console.log(loc.pathname);
+		console.log(loc.hostname);
+		console.log(loc.protocol);
+		console.log(loc.search);*/
+		if (loc.protocol.indexOf('s')<0 & loc.hostname.indexOf('127')<0){ // | loc.hostname.indexOf('www')<0
+			window.stop();
+			loc.assign('https://' + loc.hostname + loc.pathname + loc.search); //loc.search pour le paramètre le cas échéant
+		}
+	</script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Cyberlibris Discovery Web App">
+	<meta name="theme-color" content="#000" />
+
+	<!--CHANGER LE LIEN ABSOLU POUR IMAGE UTILISE DANS LE PARTAGE ET RESEAUX SOCIAUX -->
+	<meta id = 'ogimage' property="og:image" content="https://www.datavis.it/m/draft/img/icon512.png">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="512">
+	<meta property="og:image:height" content="512">
+	<!--//CHANGER LE LIEN ABSOLU POUR IMAGE UTILISE DANS LE PARTAGE ET RESEAUX SOCIAUX -->
+	
+	<script type="text/javascript">	
+	/*	
+	// REGISTER SERVICE WORKER - NOW IN NOTIF.JS
+	if ('serviceWorker' in navigator && 'PushManager' in window) {
+		window.addEventListener('load', () => {
+			navigator.serviceWorker.register('sw.js')
+				.then(function(reg) {
+					reg.update();
+					// registration worked
+					console.log('Service worker registered.', reg);
+					console.log('Registration succeeded. Scope is ' + reg.scope);
+				}).catch(function(error) {
+					// registration failed
+					console.log('Registration failed with ' + error);
+	  			});
+		});
+	};
+	*/
+	</script>
+	<!-- APPLE iOS-->
+	<link rel="apple-touch-icon" href="img/icon192.png">
+	<link rel="apple-touch-icon" sizes="48x48" href="img/icon48.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="img/icon72.png">
+	<link rel="apple-touch-icon" sizes="96x96" href="img/icon96.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="img/icon144.png">
+	<link rel="apple-touch-icon" sizes="168x168" href="img/icon168.png">
+	<link rel="apple-touch-icon" sizes="192x192" href="img/icon192.png">
+	<link rel="apple-touch-icon" sizes="512x512" href="img/icon512.png">
+	<link rel="apple-touch-startup-image" href="img/icon192.png">
+
+	<meta name="apple-touch-fullscreen" content="YES" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name='application-name' content='Visio'>
+	<meta name="HandheldFriendly" content="true" />
+
+	<meta name="apple-mobile-web-app-title" content="Cyberlibris">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!-- -- --> 
+
+	<link rel="manifest" href="manifest.json">
+
+	<!-- Fallback application metadata for legacy browsers -->
+	<meta name="application-name" content="Visio">
+	<link rel="icon" sizes="16x16 32x32 48x48 72x72 96x96" href="img/icon48.png">
+	<link rel="icon" sizes="144x144 168x168 192x192 512x512" href="img/icon192.png">
+
+
+	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+	
+	<!--WITHOUT ICONS PACK -->
+	<!--<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui-core.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+	
+	<!--WITH ICONS PACK -->
+	<!-- WHERE MD ICON IDS CAN BE FOUND : http://zavoloklom.github.io/material-design-iconic-font/icons.html -->
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/onsenui/css/onsenui.min.css">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/onsenui/css/ionicons/css/ionicons.min.css">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/onsenui/css/material-design-iconic-font/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/onsenui/css/font_awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/onsenui/css/font_awesome/css/v4-shims.min.css">
+
+	<!--<link rel="stylesheet" href="css/onsenui.css">
+	<link rel="stylesheet" href="css/onsenui_components.css">-->
+	
+	<link rel="stylesheet" type="text/css" href="css/maincss.css">
+
+	<script src="https://unpkg.com/jquery"></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.1.1/he.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
+</head>
+
+<body>
+
+	<ons-splitter>
+		<ons-splitter-side id="menu" side="right" width="220px" collapse>
+			<ons-page>
+				<ons-list>
+					<ons-list-item id="homepaget" onclick="loadhome()" tappable>
+						
+					</ons-list-item>
+
+					<ons-list-item id="searcht" onclick="loadsearch()" tappable>
+						
+					</ons-list-item>					
+					
+					<ons-list-item id="shelvest" onclick="loadshelves()" tappable>
+						
+					</ons-list-item>
+					
+					<ons-list-item id="visitedlit" onclick="loadvislist()" tappable>
+						
+					</ons-list-item>
+					
+					<ons-list-item id="visitedbot" onclick="loadvisbooks()" tappable>
+						
+					</ons-list-item>
+					
+					<ons-list-item  id="favoritet"onclick="loadfavbooks()" tappable>
+						
+					</ons-list-item>
+					
+					<ons-list-item id="splitterlogin" onclick="loadlogin()" tappable>
+						
+					</ons-list-item>
+					
+					<ons-list-item id="splitterlogout" onclick="logout()" tappable>
+						
+					</ons-list-item>
+					
+					<ons-list-item  id="installpwa" onclick="installpwa()" tappable>
+						
+					</ons-list-item>
+
+					<ons-list-item  id="settingst" onclick="document.getElementById('settingsmodal').show()" tappable>
+						
+					</ons-list-item>
+
+				</ons-list>
+			</ons-page>
+		</ons-splitter-side>
+		<ons-splitter-content>
+			<ons-navigator swipeable id="mynav" page=""></ons-navigator>
+		</ons-splitter-content>
+	</ons-splitter>
+
+	
+
+	<template id="homepage.html">
+		<ons-page id="homepage">
+			<ons-toolbar>
+				<div class="left"><ons-back-button></ons-back-button></div>				
+				<div class="center"></div>
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="md-menu"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+			</ons-toolbar>
+
+			<ons-list id=homepagelist>
+			</ons-list>
+		</ons-page>
+	</template>
+
+	<template id="listview.html">
+		<ons-page id="listview">
+			<ons-toolbar>
+				<div class="left"><ons-back-button></ons-back-button></div>
+				<div id="titlelistview" class="center"></div>
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="md-menu"></ons-icon>
+					</ons-toolbar-button>
+				</div>				
+			</ons-toolbar>
+			<ons-search-input
+				id='listSearchValue'
+				readonly
+				placeholder=''
+				onfocus="d3.select(this).attr('readonly', null)"
+				onkeyup="filterlist(this.value)"
+			></ons-search-input>
+			
+			<ons-list id=listviewlist>
+			</ons-list>
+
+		</ons-page>
+	</template>
+
+	<template id="inflist.html">
+		<ons-page id="inflist">
+			<ons-toolbar>
+				<div class="left"><ons-back-button></ons-back-button></div>
+				<div id="titleinflist" class="center"></div>
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="md-menu"></ons-icon>
+					</ons-toolbar-button>
+				</div>				
+			</ons-toolbar>
+			<ons-list id="coverviewlist">
+			</ons-list>
+			<div id="acc" style="width: 100%; height: 100%"></div>
+		</ons-page>
+	</template>	
+
+
+	<template id="details.html">
+		<ons-page id="details">
+			<ons-toolbar>
+				<div class="left"><ons-back-button></ons-back-button></div>
+				<div class="center"></div>
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="md-menu"></ons-icon>
+					</ons-toolbar-button>
+				</div>				
+			</ons-toolbar>
+			
+			<ons-row id = detailsDirection>
+			  <ons-col>
+				<ons-list modifier="noborder">
+					<ons-list-item modifier="nodivider">
+						<img id="bookselcover" src="#"/>	
+						<iframe id="extdociframe" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</ons-list-item>
+					<ons-list-item id="bookdetailicons"> 						
+						<div class="left">
+							<ons-icon id="bookdetailadd" icon="md-plus" onclick="opensavemodelcheck()" style="font-size: 1.8em;"></ons-icon>
+						</div>
+						<div class="right">
+							<ons-icon id="bookdetailfav" icon="md-favorite" style="color: black; font-size: 1.8em;"></ons-icon>
+						</div>
+					</ons-list-item>
+				</ons-list>
+			  </ons-col>
+			  <ons-col>
+			  	<ons-card>
+				  	<ons-list>
+						<ons-list-item expandable>
+							<span id="moreinfot"></span>
+							<div class="expandable-content"> 					
+								<ons-list-item modifier="nodivider"> 
+									<h3 id="booktitle" style="margin: 0"></h3>
+								</ons-list-item>
+								<ons-list-item modifier="nodivider"> 
+									<h3 id="bookauthor" style="margin: 0"></h3>
+								</ons-list-item>
+								<ons-list-item modifier="nodivider"> 
+									<h3 id="bookpublisher" style="margin: 0"></h3>
+								</ons-list-item>
+								<ons-list-item modifier="nodivider"> 
+									<h3 id="bookpubdate" style="margin: 0"></h3>
+								</ons-list-item>
+							</div>	
+						</ons-list-item>
+						<ons-list-item expandable> 
+							<span id="bookdescription"></span>
+							<div id="bookdescriptionexpand" class="expandable-content"></div>
+						</ons-list-item>
+						<ons-list-item expandable> 
+							<span id="booktoc"></span>
+							<div class="expandable-content">
+								<ons-list id="toclist" modifier="noborder"></ons-list>
+							</div>
+						</ons-list-item>
+					</ons-list>
+				</ons-card>
+				<ons-card>
+					<p>
+						<ons-button id="bibliographbtn" modifier="large" onclick="getsimdocid(apireadings)"></ons-button>
+					</p>
+					<p>
+						<ons-button id="explovizbtn" modifier="large" onclick="getsimdocid(apishelves)"></ons-button>
+					</p>
+					<p>
+						<ons-button id="openthebookbtn" modifier="large" onclick="openthedoc(1)"></ons-button>
+					</p>
+					<p>
+						<ons-button id="addtoshelvesbtn" modifier="large" onclick="opensavemodelcheck()"></ons-button>
+					</p>	
+					<p>
+						<ons-button id="sharebtn" modifier="large" onclick="shareorcopybtn()"></ons-button>
+					</p>				
+
+				</ons-card>				
+			  </ons-col>
+			</ons-row>
+			
+
+
+			<ons-card id="linkedextdoccard">
+				<iframe id="linkedvideoiframe" style="display:none" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<iframe id="linkedpodcastiframe" style="display:none" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+			</ons-card>
+		</ons-page>
+	</template>
+
+
+	<ons-modal id="loginmodal" direction="up">
+		<div style="text-align: center; margin-top: 30px;">
+			<p>
+				<ons-input id="un" modifier="underbar" placeholder="" float></ons-input>
+			</p>
+			<p>
+				<ons-input id="pw" modifier="underbar" type="password" placeholder="" float></ons-input><ons-icon style="position: absolute;" icon="md-eye" onclick="showpsw(this)"></ons-icon>
+			</p>
+			<p style="margin-top: 30px;">
+				<ons-button id="signin" onclick="prelog()"></ons-button>
+				<ons-button id="cancelsignin" onclick="d3.select('#loginmodal').node().hide()" ></ons-button>
+			</p>
+		</div>
+	</ons-modal>
+
+	<ons-modal id="searchModal" direction="up">
+		<div style="text-align: center; margin-top: 30px;">
+			<p>
+				<ons-input id="searchInputValue" modifier="underbar" placeholder="" float></ons-input>
+			</p>
+
+			<p style="margin-top: 30px;">
+				<ons-button id="searchInputBtn" onclick="searchAction(document.getElementById('searchInputValue').value)"></ons-button>
+				<ons-button id="cancelSearch" onclick="d3.select('#searchModal').node().hide();" ></ons-button>
+			</p>
+		</div>
+	</ons-modal>
+
+
+	<ons-modal id="savebookmodal" direction="up">
+		<ons-page>
+			<ons-fab style="background: rgba(0,0,0,.5);" position="top right" onclick="d3.select('#savebookmodal').node().hide()">
+				<ons-icon style="color: white" icon="md-close"></ons-icon>
+			</ons-fab>
+
+			<div style="text-align: center; margin-top: 30px">
+				<h4 id="myshelt"></h4>
+				<ons-list id=savebooklist>
+				<!--<p>
+					<ul id=savebooklist style="list-style-type:none;"></ul>
+				</p>-->
+				</ons-list>			
+				<h4 id="shelcreatet"></h4>
+				<p>
+					<ons-input id="createshelfname" modifier="material" placeholder="" float></ons-input>
+					<ons-button id="createshelfbtn" onclick="create1shelfandsavebook()"></ons-button>
+				</p>
+			</div>
+		</ons-page>
+	</ons-modal>
+
+
+	<ons-modal id="settingsmodal" direction="up">
+		<ons-fab style="background: rgba(0,0,0,.5);" position="top right" onclick="d3.select('#settingsmodal').node().hide()">
+			<ons-icon style="color: white" icon="md-close"></ons-icon>
+		</ons-fab>
+
+		<ons-card>
+			<ons-list>
+				
+				<ons-list-item tappable style="display: none;">
+					<div id="enpumet" class="center"></div>
+					<div class="right">
+						<ons-switch id = 'switchnotif'></ons-switch>
+					</div>
+				</ons-list-item>
+				
+				<ons-list-item expandable>
+					<span id="chanlangt"></span>
+					<div class="expandable-content">
+						<center>
+							<ons-button class="langselect" id="frbnt" lang="fr" modifier="" style="width: 40%" onclick="">Français</ons-button>
+							<ons-button class="langselect" id="enbtn" lang="en" modifier="" style="width: 40%" onclick="">English</ons-button>
+						</center>
+					</div>
+				</ons-list-item>
+			</ons-list>
+		</ons-card>
+	</ons-modal>
+
+
+	<ons-dialog id="bookdialog" cancelable>
+		<div style="text-align: center; padding: 10px;">
+			<ons-card>
+				<p>
+					<ons-button id="bibliographbtn" modifier="large" onclick="getsimdocid(apireadings); hideDialog('bookdialog')"></ons-button>
+				</p>
+				<p>
+					<ons-button id="explovizbtn" modifier="large" onclick="getsimdocid(apishelves); hideDialog('bookdialog')"></ons-button>
+				</p>
+				<p>
+					<ons-button id="openthebookbtn" modifier="large" onclick="openthedoc(1); hideDialog('bookdialog')"></ons-button>
+				</p>
+				<p>
+					<ons-button id="addtoshelvesbtn" modifier="large" onclick="opensavemodelcheck(); hideDialog('bookdialog')"></ons-button>
+				</p>
+				<p>
+					<ons-button id="sharebtn" modifier="large" onclick="shareorcopybtn(); hideDialog('bookdialog')"></ons-button>
+				</p>				
+				<p>
+					<ons-button id="closebtn" modifier="large--quiet" onclick="hideDialog('bookdialog')"></ons-button>
+				</p>
+			</ons-card>
+		</div>
+	</ons-dialog>
+
+	<ons-dialog id="changelangdialog" cancelable>
+		<div style="text-align: center; padding: 10px;">
+			<p id="surchanglang"></p>
+			<p>
+				<ons-button id="oklangbtn" modifier="large" onclick="localStorage.setItem('lang', clickedlang); window.open('index.html', '_self'); hideDialog('changelangdialog')"></ons-button>
+			</p>
+			<p>
+				<ons-button id="nolangbtn" modifier="large" onclick="hideDialog('changelangdialog')"></ons-button>
+			</p>
+		</div>
+	</ons-dialog>	
+
+</body>
+
+<script type="text/javascript">
+	// TRAD
+	d3.select('#homepaget').select('div').text(homepaget);
+	d3.select('#searcht').select('div').text(searcht);
+	d3.select('#shelvest').select('div').text(shelvest);
+	d3.select('#visitedlit').select('div').text(visitedlit);
+	d3.select('#visitedbot').select('div').text(visitedbot);
+	d3.select('#favoritet').select('div').text(favoritet);
+	d3.select('#splitterlogin').select('div').text(splitterlogin);
+	d3.select('#splitterlogout').select('div').text(splitterlogout);
+	d3.select('#installpwa').select('div').text(installpwa);
+	d3.select('#settingst').select('div').text(settingst);
+	
+	/*d3.selectAll('#bibliographbtn').text(bibliographbtn);
+	d3.selectAll('#explovizbtn').text(explovizbtn);
+	d3.selectAll('#openthebookbtn').text(openthebookbtn);
+	d3.selectAll('#addtoshelvesbtn').text(addtoshelvesbtn);
+	d3.selectAll('#closebtn').text(closebtn);*/
+
+	d3.selectAll('#shelcreatet').text(shelcreatet);
+	d3.selectAll('#myshelt').text(myshelt);
+	d3.selectAll('#createshelfname').attr('placeholder', createshelfname);
+	d3.selectAll('#createshelfbtn').text(createshelfbtn);
+
+	d3.select('#enpumet').text(enpumet);
+	d3.select('#chanlangt').text(chanlangt);
+	d3.select('#surchanglang').text(surchanglang);
+	d3.select('#oklangbtn').text(oklangbtn);
+	d3.select('#nolangbtn').text(nolangbtn);
+
+	d3.select('#signin').text(signin);
+	d3.select('#cancelsignin').text(cancelsignin);
+	d3.select('#un').attr('placeholder', un);
+	d3.select('#pw').attr('placeholder', pw);
+	
+	d3.select('#cancelSearch').text(cancelSearch);
+	d3.select('#searchInputBtn').text(searchInputBtn);
+	d3.select('#searchInputValue').attr('placeholder', searchPlaceholder);
+	
+</script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script> <!-- NECESSAIRE POUR BOOKSHELFMGR API -->
+<script type="text/javascript" src="js/notif.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="https://www.datavis.it/lib/accordeon.js"></script>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  NECESSAIRE POUR BOOKSHELFMGR API -->
+<!--///////////////////////////////////////////////////////-->
+<!-- LAISSER LES COMMENTAIRES -->
+<!--PROD cyberfamili vue v_app_registry-->
+
+<!-- BUSINESSVOX --> 
+<!--<script id="bookshelfmgr" src="https://bookshelfmgr.scholarvis.io/js?accesskey=bCgtxN3626KgydlOhJ435NaEgqbaLhblgl4yBMFV" type="text/javascript" charset="utf-8"></script>-->
+<!-- /BUSINESSVOX -->
+
+<!-- BIBLIOVOX -->
+<script id="bookshelfmgr" src="https://bookshelfmgr.scholarvis.io/js?accesskey=0fJ6136cgVgCIa0n.BTU;9dNBqS.Ts2pyl.5kxyM" type="text/javascript" charset="utf-8"></script>
+<!-- /BIBLIOVOX -->
+
+<!-- SCHOLARVOX MGMT--> 
+<!--<script id="bookshelfmgr" src="https://bookshelfmgr.scholarvis.io/js?accesskey=AVVW9MUpo3I7vs3bc1Eef4jtktpPBTKoxiscOhHz" type="text/javascript" charset="utf-8"></script>-->
+<!-- SCHOLARVOX MGMT--> 
+
+<!-- /LAISSER LES COMMENTAIRES -->
+<!--///////////////////////////////////////////////////////-->
+</html>
